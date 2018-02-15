@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="hide">HIDE</string>
+    <string name="sort">SORT</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="release_date">Release Date</string>
+    <string name="movie_details">Movie Details</string>
+    <string name="score">Score</string>
+    <string name="overview">Overview</string>
+    <string name="image_content_description">Movie cover</string>
+    <string name="api_key_missing">TheMovieDataBase api key is missing. Please search for secrets.xml file in the resources folder.</string>
+    <string name="no_internet">There is no internet connection.</string>
+    <string name="no_data_found">No Data Found</string>
+</resources>

@@ -1,0 +1,45 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Widget.Overlay" parent="android:Widget">
+        <item name="android:background">@color/overlay_background</item>
+    </style>
+
+    <style name="Widget.ActionBarTitle" parent="android:Widget.TextView">
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <!-- Use 'dp' so that the user's font preference doesn't affect the action bar. -->
+        <item name="android:textSize">19sp</item>
+        <item name="android:textColor">@color/action_bar_text</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <!--<item name="android:fontFamily">sans-serif-light</item>-->
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="Widget.ActionBarButton" parent="android:Widget.Button">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:textColor">@color/action_bar_text</item>
+        <!-- Use 'dp' so that the user's font preference doesn't affect the action bar. -->
+        <item name="android:textSize">13sp</item>
+        <item name="android:background">@drawable/overlay_selector</item>
+    </style>
+
+    <style name="Widget.ListItem" parent="android:Widget.TextView">
+        <item name="android:minHeight">50dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/action_bar_text</item>
+    </style>
+
+</resources>

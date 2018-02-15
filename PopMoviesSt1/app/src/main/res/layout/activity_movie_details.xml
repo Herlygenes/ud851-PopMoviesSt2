@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.ud851.popmoviesst1.MovieDetailsActivity">
+
+    <TextView
+        android:id="@+id/tv_movie_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/movie_title_text_background"
+        android:gravity="center_vertical"
+        android:text="@string/movie_title"
+        android:textColor="@color/movie_title_text_color"
+        android:textSize="36sp"
+        android:padding="24dp"
+        tools:fontFamily="sans-serif-condensed"
+        tools:paddingHorizontal="48dp" />
+
+    <ImageView
+        android:id="@+id/iv_movie_cover"
+        android:layout_width="130dp"
+        android:layout_height="194dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="48dp"
+        android:contentDescription="@string/image_content_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
+        app:srcCompat="@drawable/placeholder" />
+
+    <TextView
+        android:id="@+id/tv_year"
+        android:layout_width="96dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="80dp"
+        android:text="@string/release_date"
+        app:layout_constraintStart_toEndOf="@+id/iv_movie_cover"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
+
+    <TextView
+        android:id="@+id/tv_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/score"
+        app:layout_constraintStart_toEndOf="@+id/iv_movie_cover"
+        app:layout_constraintTop_toBottomOf="@+id/tv_year" />
+
+    <TextView
+        android:id="@+id/tv_overview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/overview"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_movie_cover" />
+
+</android.support.constraint.ConstraintLayout>
