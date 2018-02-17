@@ -1,4 +1,4 @@
-package br.com.ud851.popmoviesst1;
+package br.com.ud851.popmoviesst1.listeners;
 
 import android.content.Context;
 import android.widget.AbsListView;

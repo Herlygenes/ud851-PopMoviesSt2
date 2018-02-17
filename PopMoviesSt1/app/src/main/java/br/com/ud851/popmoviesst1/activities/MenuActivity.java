@@ -1,4 +1,4 @@
-package br.com.ud851.popmoviesst1;
+package br.com.ud851.popmoviesst1.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +12,9 @@ import android.widget.ListView;
 import android.widget.ToggleButton;
 
 import com.squareup.picasso.Picasso;
+
+import br.com.ud851.popmoviesst1.adapters.MenuAdapter;
+import br.com.ud851.popmoviesst1.R;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -35,7 +38,7 @@ abstract class MenuActivity extends FragmentActivity {
         activityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                adapter.getItem(position).launch(MenuActivity.this);
+                adapter.launch(position, MenuActivity.this);
             }
         });
 

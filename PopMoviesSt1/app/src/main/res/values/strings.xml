@@ -3,12 +3,15 @@
     <string name="hide">HIDE</string>
     <string name="sort">SORT</string>
     <string name="movie_title">Movie Title</string>
-    <string name="release_date">Release Date</string>
+    <string name="releaseDate">Release Date</string>
     <string name="movie_details">Movie Details</string>
     <string name="score">Score</string>
     <string name="overview">Overview</string>
     <string name="image_content_description">Movie cover</string>
-    <string name="api_key_missing">TheMovieDataBase api key is missing. Please search for secrets.xml file in the resources folder.</string>
+    <string name="api_key_missing">TheMovieDataBase api key is missing. Please search for buildConfigField in the build.gradle file.</string>
     <string name="no_internet">There is no internet connection.</string>
     <string name="no_data_found">No Data Found</string>
+    <string name="menu_opt_most_popular">Most Popular</string>
+    <string name="menu_opt_top_rated">Top Rated</string>
+    <string name="menu_opt_favorites">Favorites</string>
 </resources>

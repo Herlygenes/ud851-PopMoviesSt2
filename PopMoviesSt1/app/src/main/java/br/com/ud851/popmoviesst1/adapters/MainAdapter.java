@@ -1,4 +1,4 @@
-package br.com.ud851.popmoviesst1;
+package br.com.ud851.popmoviesst1.adapters;
 
 import android.content.Context;
 import android.view.View;
@@ -11,13 +11,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import br.com.ud851.popmoviesst1.R;
+
 import static android.widget.ImageView.ScaleType.CENTER_CROP;
 
 /**
  * Created by Herlygenes Pinto on 09/12/2017.
  */
 
-final class MainAdapter  extends BaseAdapter {
+public final class MainAdapter  extends BaseAdapter {
     private final Context context;
     private final List<String> urls = new ArrayList<>();
 

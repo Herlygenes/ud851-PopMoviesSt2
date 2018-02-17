@@ -1,4 +1,4 @@
-package br.com.ud851.popmoviesst1;
+package br.com.ud851.popmoviesst1.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;

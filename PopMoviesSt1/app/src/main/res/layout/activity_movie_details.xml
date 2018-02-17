@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.ud851.popmoviesst1.MovieDetailsActivity">
+    tools:context="br.com.ud851.popmoviesst1.activities.MovieDetailsActivity">
 
     <TextView
         android:id="@+id/tv_movie_title"
@@ -36,7 +36,7 @@
         android:layout_height="32dp"
         android:layout_marginLeft="48dp"
         android:layout_marginTop="80dp"
-        android:text="@string/release_date"
+        android:text="@string/releaseDate"
         app:layout_constraintStart_toEndOf="@+id/iv_movie_cover"
         app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
 
