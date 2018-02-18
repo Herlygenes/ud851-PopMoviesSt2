@@ -18,6 +18,7 @@ public class Movie implements Parcelable{
     public static String OVERVIEW = "overview";
     public static String RELEASE_DATE = "release_date";
     public static String PARCELABLE_KEY = "parcelable";
+
     private String id;
     private String voteAverage;
     private String title;

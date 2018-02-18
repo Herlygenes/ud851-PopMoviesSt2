@@ -8,16 +8,16 @@ import java.net.URL;
 import java.util.List;
 
 import br.com.ud851.popmoviesst1.R;
-import br.com.ud851.popmoviesst1.data.Movie;
 import br.com.ud851.popmoviesst1.interfaces.AsyncTaskDelegate;
 import br.com.ud851.popmoviesst1.utils.JSONUtils;
 import br.com.ud851.popmoviesst1.utils.NetworkUtils;
+import br.com.ud851.popmoviesst1.utils.TMDBUtils;
 
 /**
  * Created by sujei on 16/02/2018.
  */
 
-public class TheMovieDatabaseService extends AsyncTask<URL, String, List<Movie>> {
+public class TheMovieDatabaseService extends AsyncTask<String, String, List<Object>> {
 
     private AsyncTaskDelegate delegate = null;
     private Context context;
@@ -30,13 +30,23 @@ public class TheMovieDatabaseService extends AsyncTask<URL, String, List<Movie>>
     }
 
     @Override
-    protected List<Movie> doInBackground(URL... urls) {
-        URL searchUrl = urls[0];
+    protected List<Object> doInBackground(String... args) {
         String tmdbSearchResults = null;
         try {
-            tmdbSearchResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
-            if (tmdbSearchResults != null && !tmdbSearchResults.equals("")) {
-                return JSONUtils.populateMoviesFromJSONString(tmdbSearchResults, context);
+            if(args[0].equals(TMDBUtils.GET_ALL_MOVIES)){
+                String searchQuery = args[1];
+                URL searchUrl = TMDBUtils.buildSearchForAllUrl(searchQuery);
+                tmdbSearchResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
+                if (tmdbSearchResults != null && !tmdbSearchResults.equals("")) {
+                    return JSONUtils.populateMoviesFromJSONString(tmdbSearchResults);
+                }
+            } else if(args[0].equals(TMDBUtils.GET_MOVIE_TRAILERS)){
+                String movieId = args[1];
+                URL searchUrl = TMDBUtils.buildSearchForTrailersUrl(movieId);
+                tmdbSearchResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
+                if (tmdbSearchResults != null && !tmdbSearchResults.equals("")) {
+                    return JSONUtils.populateTrailersFromJSONString(tmdbSearchResults);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,7 +55,7 @@ public class TheMovieDatabaseService extends AsyncTask<URL, String, List<Movie>>
     }
 
     @Override
-    protected void onPostExecute(List<Movie> movies) {
+    protected void onPostExecute(List<Object> movies) {
         super.onPostExecute(movies);
         if(delegate != null){
             delegate.processFinish(movies);

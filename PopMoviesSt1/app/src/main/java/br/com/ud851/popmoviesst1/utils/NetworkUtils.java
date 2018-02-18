@@ -18,32 +18,6 @@ import br.com.ud851.popmoviesst1.BuildConfig;
  */
 
 public class NetworkUtils {
-    private final static String TMDB_BASE_URL = "https://api.themoviedb.org/3/movie/";
-    private final static String API_KEY = "?api_key=";
-    public final static String TMDB_API_KEY = BuildConfig.tmdb_api_key;
-    public final static String QUERY_TMDB = "query_tmdb";
-    public final static String TMDB_POPULAR_QUERY = "popular";
-    public final static String TMDB_TOP_RATED_QUERY = "top_rated";
-    public final static String TMDB_VIDEOS_QUERY = "videos";
-    public final static String TMDB_REVIEWS_QUERY = "reviews";
-    public final static String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
-    public final static String IMAGE_SIZE_W185 = "w185";
-
-
-    public static URL buildUrl(String searchQuery, Context context) {
-        Uri builtUri = Uri.parse(TMDB_BASE_URL + searchQuery + API_KEY + TMDB_API_KEY).buildUpon().build();
-
-        URL url = null;
-        try {
-            url = new URL(builtUri.toString());
-            Log.i("URL_TMDB", url.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        return url;
-    }
-
     /**
      * This method returns the entire result from the HTTP response.
      *

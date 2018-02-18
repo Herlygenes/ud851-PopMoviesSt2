@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import br.com.ud851.popmoviesst1.utils.App;
 import br.com.ud851.popmoviesst1.utils.NetworkUtils;
 import br.com.ud851.popmoviesst1.R;
 import br.com.ud851.popmoviesst1.activities.MainActivity;
+import br.com.ud851.popmoviesst1.utils.TMDBUtils;
 
 /**
  * Created by Herlygenes Pinto on 09/12/2017.
@@ -20,8 +22,9 @@ import br.com.ud851.popmoviesst1.activities.MainActivity;
 public final class MenuAdapter extends BaseAdapter {
 
     enum SortCategory {
-        POPULAR("Most Popular", MainActivity.class),
-        TOP_RATED("Top Rated", MainActivity.class);
+        POPULAR(App.getContext().getResources().getString(R.string.menu_opt_most_popular), MainActivity.class),
+        TOP_RATED(App.getContext().getResources().getString(R.string.menu_opt_top_rated), MainActivity.class),
+        FAVORITES(App.getContext().getResources().getString(R.string.menu_opt_favorites), MainActivity.class);
 
         private final Class<? extends Activity> activityClass;
         private final String name;
@@ -33,10 +36,12 @@ public final class MenuAdapter extends BaseAdapter {
 
         public void launch(Activity activity) {
             Intent intent = new Intent(activity, activityClass);
-            if(name.equals("Most Popular")){
-                intent.putExtra("query_tmdb", NetworkUtils.TMDB_POPULAR_QUERY);
+            if(name.equals(activity.getResources().getString(R.string.menu_opt_most_popular))){
+                intent.putExtra(TMDBUtils.QUERY, TMDBUtils.POPULAR_QUERY);
+            } else if(name.equals(activity.getResources().getString(R.string.menu_opt_top_rated))){
+                intent.putExtra(TMDBUtils.QUERY, TMDBUtils.TOP_RATED_QUERY);
             } else {
-                intent.putExtra("query_tmdb", NetworkUtils.TMDB_TOP_RATED_QUERY);
+                intent.putExtra(TMDBUtils.QUERY, TMDBUtils.TOP_RATED_QUERY);
             }
             activity.startActivity(intent);
             activity.finish();
