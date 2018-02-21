@@ -1,7 +1,7 @@
 package br.com.ud851.popmoviesst1.interfaces;
 
 /**
- * Created by sujei on 16/02/2018.
+ * Created by Herlygenes Pinto on 16/02/2018.
  */
 
 public interface AsyncTaskDelegate {

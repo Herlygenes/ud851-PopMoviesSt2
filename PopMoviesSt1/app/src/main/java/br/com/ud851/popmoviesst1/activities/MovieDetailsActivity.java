@@ -2,31 +2,34 @@ package br.com.ud851.popmoviesst1.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ud851.popmoviesst1.R;
-import br.com.ud851.popmoviesst1.adapters.MainAdapter;
+import br.com.ud851.popmoviesst1.adapters.TrailerAdapter;
 import br.com.ud851.popmoviesst1.data.Movie;
 import br.com.ud851.popmoviesst1.data.Trailer;
 import br.com.ud851.popmoviesst1.interfaces.AsyncTaskDelegate;
-import br.com.ud851.popmoviesst1.listeners.ScrollListener;
 import br.com.ud851.popmoviesst1.services.TheMovieDatabaseService;
-import br.com.ud851.popmoviesst1.utils.NetworkUtils;
 import br.com.ud851.popmoviesst1.utils.TMDBUtils;
+import br.com.ud851.popmoviesst1.utils.YoutubeUtils;
+
+/**
+ * Created by Herlygenes Pinto on 09/12/2017.
+ */
 
 public class MovieDetailsActivity extends AppCompatActivity implements AsyncTaskDelegate {
     private Movie movie;
@@ -36,6 +39,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
     private TextView tv_score;
     private TextView tv_overview;
     private ImageView iv_movie_cover;
+    private ImageButton ib_play_trailer;
 
     private Context context;
 
@@ -73,18 +77,34 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
         service.execute(args);
     }
 
+    private ArrayList<String> getYoutubeUrls(){
+        ArrayList<String> urls = new ArrayList<>();
+        for (Trailer trailer : trailers){
+            urls.add(YoutubeUtils.YOUTUBE_BASE_URL + trailer.getKey());
+        }
+        return urls;
+    }
+
     @Override
     public void processFinish(Object output) {
         if(output != null){
             trailers = (List<Trailer>) output;
-            for(Trailer trailer : trailers){
-                URL youtubeUrl = TMDBUtils.buildYoutubeUrl(trailer);
-                if(youtubeUrl != null){
-                    Log.i("YOUTUBE_URL: ", youtubeUrl.toString());
+            ListView lvTrailer = (ListView) findViewById(R.id.trailer_list_view);
+
+            TrailerAdapter trailerAdapter = new TrailerAdapter(this, trailers);
+
+            lvTrailer.setAdapter(trailerAdapter);
+
+            lvTrailer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Trailer trailer = trailers.get(position);
+                    YoutubeUtils.watchYoutubeVideo(MovieDetailsActivity.this, trailer.getKey());
                 }
-            }
+            });
         }else{
             Toast.makeText(this, R.string.no_internet, Toast.LENGTH_LONG).show();
         }
     }
+
 }

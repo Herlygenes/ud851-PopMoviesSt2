@@ -13,8 +13,8 @@ import android.widget.ToggleButton;
 
 import com.squareup.picasso.Picasso;
 
-import br.com.ud851.popmoviesst1.adapters.MenuAdapter;
 import br.com.ud851.popmoviesst1.R;
+import br.com.ud851.popmoviesst1.adapters.MenuAdapter;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;

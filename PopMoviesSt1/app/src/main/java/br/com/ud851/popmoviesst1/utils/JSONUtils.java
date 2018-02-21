@@ -12,7 +12,7 @@ import br.com.ud851.popmoviesst1.data.Movie;
 import br.com.ud851.popmoviesst1.data.Trailer;
 
 /**
- * Created by sujei on 16/02/2018.
+ * Created by Herlygenes on 16/02/2018.
  */
 
 public class JSONUtils {

@@ -14,7 +14,7 @@ import br.com.ud851.popmoviesst1.utils.NetworkUtils;
 import br.com.ud851.popmoviesst1.utils.TMDBUtils;
 
 /**
- * Created by sujei on 16/02/2018.
+ * Created by Herlygenes Pinto on 16/02/2018.
  */
 
 public class TheMovieDatabaseService extends AsyncTask<String, String, List<Object>> {

@@ -1,6 +1,5 @@
 package br.com.ud851.popmoviesst1.utils;
 
-import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
@@ -8,7 +7,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import br.com.ud851.popmoviesst1.BuildConfig;
-import br.com.ud851.popmoviesst1.data.Trailer;
 
 /**
  * Created by Herlygenes Pinto on 17/02/2018.
@@ -26,10 +24,8 @@ public class TMDBUtils {
     public final static String QUERY = "query_tmdb";
     public final static String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
     public final static String IMAGE_SIZE_W185 = "w185";
-    public final static String YOUTUBE = "YouTube";
 
     private final static String TMDB_BASE_URL = "https://api.themoviedb.org/3/movie/";
-    private final static String YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v=";
     private final static String API_KEY = "?api_key=";
 
     public static URL buildSearchForAllUrl(String searchQuery) {
@@ -60,17 +56,4 @@ public class TMDBUtils {
         return url;
     }
 
-    public static URL buildYoutubeUrl(Trailer trailer){
-        URL url = null;
-        if(YOUTUBE.equals(trailer.getSite())){
-            Uri builtUri = Uri.parse(YOUTUBE_BASE_URL + trailer.getKey()).buildUpon().build();
-            try {
-                url = new URL(builtUri.toString());
-                Log.i("URL_TMDB", url.toString());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-        }
-        return url;
-    }
 }

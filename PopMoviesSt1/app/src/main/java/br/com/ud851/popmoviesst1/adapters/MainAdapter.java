@@ -19,7 +19,7 @@ import static android.widget.ImageView.ScaleType.CENTER_CROP;
  * Created by Herlygenes Pinto on 09/12/2017.
  */
 
-public final class MainAdapter  extends BaseAdapter {
+public final class MainAdapter extends BaseAdapter {
     private final Context context;
     private final List<String> urls = new ArrayList<>();
 

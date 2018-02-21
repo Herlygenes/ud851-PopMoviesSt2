@@ -1,17 +1,10 @@
 package br.com.ud851.popmoviesst1.utils;
 
-import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
-
-import br.com.ud851.popmoviesst1.BuildConfig;
 
 /**
  * Created by Herlygenes Pinto on 09/12/2017.

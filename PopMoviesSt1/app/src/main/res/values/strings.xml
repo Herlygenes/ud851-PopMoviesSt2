@@ -14,4 +14,6 @@
     <string name="menu_opt_most_popular">Most Popular</string>
     <string name="menu_opt_top_rated">Top Rated</string>
     <string name="menu_opt_favorites">Favorites</string>
+    <string name="youtube_label" translatable="false">Youtube:</string>
+    <string name="trailers_label" >Trailers:</string>
 </resources>

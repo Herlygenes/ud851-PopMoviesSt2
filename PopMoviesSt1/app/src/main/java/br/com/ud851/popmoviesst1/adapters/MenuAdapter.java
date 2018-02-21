@@ -9,10 +9,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import br.com.ud851.popmoviesst1.utils.App;
-import br.com.ud851.popmoviesst1.utils.NetworkUtils;
 import br.com.ud851.popmoviesst1.R;
 import br.com.ud851.popmoviesst1.activities.MainActivity;
+import br.com.ud851.popmoviesst1.utils.App;
 import br.com.ud851.popmoviesst1.utils.TMDBUtils;
 
 /**

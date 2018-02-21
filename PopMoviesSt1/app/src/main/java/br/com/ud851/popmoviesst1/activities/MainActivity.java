@@ -21,6 +21,10 @@ import br.com.ud851.popmoviesst1.listeners.ScrollListener;
 import br.com.ud851.popmoviesst1.services.TheMovieDatabaseService;
 import br.com.ud851.popmoviesst1.utils.TMDBUtils;
 
+/**
+ * Created by Herlygenes Pinto on 09/12/2017.
+ */
+
 public class MainActivity extends MenuActivity implements AsyncTaskDelegate{
     private List<Movie> movies = new ArrayList<>();
     private Context context;
