@@ -1,4 +1,4 @@
-package br.com.ud851.popmoviesst1.data;
+package br.com.ud851.popmoviesst1.data.vos;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by Herlygenes on 17/02/2018.
  */
 
-public class Trailer implements Parcelable {
+public class TrailerVO implements Parcelable {
     public static String ID = "id";
     public static String ISO_639_1 = "iso_639_1";
     public static String ISO_3166_1 = "iso_3166_1";
@@ -26,7 +26,7 @@ public class Trailer implements Parcelable {
     private String size;
     private String type;
 
-    public Trailer(String id, String iso6391, String iso31661, String key, String name, String site, String size, String type) {
+    public TrailerVO(String id, String iso6391, String iso31661, String key, String name, String site, String size, String type) {
         this.id = id;
         this.iso6391 = iso6391;
         this.iso31661 = iso31661;
@@ -37,7 +37,7 @@ public class Trailer implements Parcelable {
         this.type = type;
     }
 
-    public Trailer() {
+    public TrailerVO() {
         this.id = "";
         this.iso6391 = "";
         this.iso31661 = "";
@@ -48,7 +48,7 @@ public class Trailer implements Parcelable {
         this.type = "";
     }
 
-    protected Trailer(Parcel in) {
+    protected TrailerVO(Parcel in) {
         id = in.readString();
         iso6391 = in.readString();
         iso31661 = in.readString();
@@ -59,15 +59,15 @@ public class Trailer implements Parcelable {
         type = in.readString();
     }
 
-    public static final Creator<Trailer> CREATOR = new Creator<Trailer>() {
+    public static final Creator<TrailerVO> CREATOR = new Creator<TrailerVO>() {
         @Override
-        public Trailer createFromParcel(Parcel in) {
-            return new Trailer(in);
+        public TrailerVO createFromParcel(Parcel in) {
+            return new TrailerVO(in);
         }
 
         @Override
-        public Trailer[] newArray(int size) {
-            return new Trailer[size];
+        public TrailerVO[] newArray(int size) {
+            return new TrailerVO[size];
         }
     };
 

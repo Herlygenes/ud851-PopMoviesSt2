@@ -92,4 +92,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_trailer_label" />
 
+    <Button
+        android:id="@+id/bt_favorites"
+        android:layout_width="83dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:singleLine="false"
+        android:text="@string/bt_favorites"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_movie_cover"
+        app:layout_constraintTop_toBottomOf="@+id/tv_score" />
+
 </android.support.constraint.ConstraintLayout>

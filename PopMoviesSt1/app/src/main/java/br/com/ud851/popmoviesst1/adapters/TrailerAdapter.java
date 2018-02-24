@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ud851.popmoviesst1.R;
-import br.com.ud851.popmoviesst1.data.Trailer;
+import br.com.ud851.popmoviesst1.data.vos.TrailerVO;
 
 /**
  * Created by Herlygenes Pinto on 18/02/2018.
@@ -19,9 +19,9 @@ import br.com.ud851.popmoviesst1.data.Trailer;
 
 public class TrailerAdapter extends BaseAdapter {
     private final Context context;
-    private List<Trailer> trailers = new ArrayList<>();
+    private List<TrailerVO> trailers = new ArrayList<>();
 
-    public TrailerAdapter(Context context, List<Trailer> trailers) {
+    public TrailerAdapter(Context context, List<TrailerVO> trailers) {
         this.context = context;
         this.trailers = trailers;
     }
@@ -43,7 +43,7 @@ public class TrailerAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Trailer trailer = (Trailer) getItem(position);
+        TrailerVO trailer = (TrailerVO) getItem(position);
 
         if(convertView == null){
             convertView = LayoutInflater.from(context).inflate(R.layout.activity_movie_trailer, parent, false);

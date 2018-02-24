@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ud851.popmoviesst1.R;
-import br.com.ud851.popmoviesst1.data.Movie;
-import br.com.ud851.popmoviesst1.data.Trailer;
+import br.com.ud851.popmoviesst1.data.vos.MovieVO;
+import br.com.ud851.popmoviesst1.data.vos.TrailerVO;
 
 /**
  * Created by Herlygenes on 16/02/2018.
@@ -48,37 +48,37 @@ public class JSONUtils {
         return trailers;
     }
 
-    private static Movie generateMovieFromJSONObject(JSONObject object) throws JSONException {
+    private static MovieVO generateMovieFromJSONObject(JSONObject object) throws JSONException {
         if(object != null){
-            return new Movie(
-                object.optString(Movie.ID),
-                object.optString(Movie.VOTE_AVERAGE),
-                object.optString(Movie.TITLE),
-                object.optString(Movie.POPULARITY),
-                object.optString(Movie.POSTER_PATH),
-                object.optString(Movie.ORIGINAL_LANGUAGE),
-                object.optString(Movie.OVERVIEW),
-                object.optString(Movie.RELEASE_DATE)
+            return new MovieVO(
+                object.optString(MovieVO.ID),
+                object.optString(MovieVO.VOTE_AVERAGE),
+                object.optString(MovieVO.TITLE),
+                object.optString(MovieVO.POPULARITY),
+                object.optString(MovieVO.POSTER_PATH),
+                object.optString(MovieVO.ORIGINAL_LANGUAGE),
+                object.optString(MovieVO.OVERVIEW),
+                object.optString(MovieVO.RELEASE_DATE)
             );
         } else {
-            return new Movie();
+            return new MovieVO();
         }
     }
 
-    private static Trailer generateTrailerFromJSONObject(JSONObject object) throws JSONException {
+    private static TrailerVO generateTrailerFromJSONObject(JSONObject object) throws JSONException {
         if(object != null){
-            return new Trailer(
-                    object.optString(Trailer.ID),
-                    object.optString(Trailer.ISO_639_1),
-                    object.optString(Trailer.ISO_3166_1),
-                    object.optString(Trailer.KEY),
-                    object.optString(Trailer.NAME),
-                    object.optString(Trailer.SITE),
-                    object.optString(Trailer.SIZE),
-                    object.optString(Trailer.TYPE)
+            return new TrailerVO(
+                    object.optString(TrailerVO.ID),
+                    object.optString(TrailerVO.ISO_639_1),
+                    object.optString(TrailerVO.ISO_3166_1),
+                    object.optString(TrailerVO.KEY),
+                    object.optString(TrailerVO.NAME),
+                    object.optString(TrailerVO.SITE),
+                    object.optString(TrailerVO.SIZE),
+                    object.optString(TrailerVO.TYPE)
             );
         } else {
-            return new Trailer();
+            return new TrailerVO();
         }
     }
 }

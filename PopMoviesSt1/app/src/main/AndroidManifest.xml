@@ -26,6 +26,11 @@
             android:name=".activities.MovieDetailsActivity"
             android:parentActivityName=".activities.MainActivity"
             android:label="@string/movie_details"/>
+
+        <provider
+            android:authorities="br.com.ud851.popmoviesst1"
+            android:name="br.com.ud851.popmoviesst1.data.providers.TMDBContentProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>

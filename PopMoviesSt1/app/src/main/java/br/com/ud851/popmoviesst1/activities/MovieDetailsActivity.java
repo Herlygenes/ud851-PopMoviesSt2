@@ -20,8 +20,8 @@ import java.util.List;
 
 import br.com.ud851.popmoviesst1.R;
 import br.com.ud851.popmoviesst1.adapters.TrailerAdapter;
-import br.com.ud851.popmoviesst1.data.Movie;
-import br.com.ud851.popmoviesst1.data.Trailer;
+import br.com.ud851.popmoviesst1.data.vos.MovieVO;
+import br.com.ud851.popmoviesst1.data.vos.TrailerVO;
 import br.com.ud851.popmoviesst1.interfaces.AsyncTaskDelegate;
 import br.com.ud851.popmoviesst1.services.TheMovieDatabaseService;
 import br.com.ud851.popmoviesst1.utils.TMDBUtils;
@@ -32,8 +32,8 @@ import br.com.ud851.popmoviesst1.utils.YoutubeUtils;
  */
 
 public class MovieDetailsActivity extends AppCompatActivity implements AsyncTaskDelegate {
-    private Movie movie;
-    private List<Trailer> trailers = new ArrayList<>();
+    private MovieVO movie;
+    private List<TrailerVO> trailers = new ArrayList<>();
     private TextView tv_movie_title;
     private TextView tv_year;
     private TextView tv_score;
@@ -57,8 +57,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
         iv_movie_cover = (ImageView) findViewById(R.id.iv_movie_cover);
         Intent intent = getIntent();
 
-        if(intent.hasExtra(Movie.PARCELABLE_KEY)){
-            movie = intent.getParcelableExtra(Movie.PARCELABLE_KEY);
+        if(intent.hasExtra(MovieVO.PARCELABLE_KEY)){
+            movie = intent.getParcelableExtra(MovieVO.PARCELABLE_KEY);
             posterPath = TMDBUtils.IMAGE_BASE_URL + TMDBUtils.IMAGE_SIZE_W185 + movie.getPosterPath();
             Log.i("POSTER_URL", posterPath);
             tv_movie_title.setText(movie.getTitle());
@@ -79,7 +79,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
 
     private ArrayList<String> getYoutubeUrls(){
         ArrayList<String> urls = new ArrayList<>();
-        for (Trailer trailer : trailers){
+        for (TrailerVO trailer : trailers){
             urls.add(YoutubeUtils.YOUTUBE_BASE_URL + trailer.getKey());
         }
         return urls;
@@ -88,7 +88,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
     @Override
     public void processFinish(Object output) {
         if(output != null){
-            trailers = (List<Trailer>) output;
+            trailers = (List<TrailerVO>) output;
             ListView lvTrailer = (ListView) findViewById(R.id.trailer_list_view);
 
             TrailerAdapter trailerAdapter = new TrailerAdapter(this, trailers);
@@ -98,7 +98,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
             lvTrailer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Trailer trailer = trailers.get(position);
+                    TrailerVO trailer = trailers.get(position);
                     YoutubeUtils.watchYoutubeVideo(MovieDetailsActivity.this, trailer.getKey());
                 }
             });

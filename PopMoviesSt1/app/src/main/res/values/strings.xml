@@ -16,4 +16,5 @@
     <string name="menu_opt_favorites">Favorites</string>
     <string name="youtube_label" translatable="false">Youtube:</string>
     <string name="trailers_label" >Trailers:</string>
+    <string name="bt_favorites" >MARK AS FAVORITE</string>
 </resources>

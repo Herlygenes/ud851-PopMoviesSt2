@@ -15,7 +15,7 @@ import java.util.List;
 
 import br.com.ud851.popmoviesst1.R;
 import br.com.ud851.popmoviesst1.adapters.MainAdapter;
-import br.com.ud851.popmoviesst1.data.Movie;
+import br.com.ud851.popmoviesst1.data.vos.MovieVO;
 import br.com.ud851.popmoviesst1.interfaces.AsyncTaskDelegate;
 import br.com.ud851.popmoviesst1.listeners.ScrollListener;
 import br.com.ud851.popmoviesst1.services.TheMovieDatabaseService;
@@ -26,7 +26,7 @@ import br.com.ud851.popmoviesst1.utils.TMDBUtils;
  */
 
 public class MainActivity extends MenuActivity implements AsyncTaskDelegate{
-    private List<Movie> movies = new ArrayList<>();
+    private List<MovieVO> movies = new ArrayList<>();
     private Context context;
 
     private String NO_DATA_FOUND;
@@ -82,7 +82,7 @@ public class MainActivity extends MenuActivity implements AsyncTaskDelegate{
     @Override
     public void processFinish(Object output) {
         if(output != null){
-            movies = (List<Movie>) output;
+            movies = (List<MovieVO>) output;
 
             GridView gv = (GridView) findViewById(R.id.grid_view);
             gv.setAdapter(new MainAdapter(context, getImagesURLs()));
@@ -91,10 +91,10 @@ public class MainActivity extends MenuActivity implements AsyncTaskDelegate{
             gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Movie movie = movies.get(position);
+                    MovieVO movie = movies.get(position);
                     Context context = MainActivity.this;
                     Intent startChildActivityIntent = new Intent(context, MovieDetailsActivity.class);
-                    startChildActivityIntent.putExtra(Movie.PARCELABLE_KEY, movie);
+                    startChildActivityIntent.putExtra(MovieVO.PARCELABLE_KEY, movie);
                     startActivity(startChildActivityIntent);
                 }
             });

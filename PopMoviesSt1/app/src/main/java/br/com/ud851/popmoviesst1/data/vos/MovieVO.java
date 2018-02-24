@@ -1,4 +1,4 @@
-package br.com.ud851.popmoviesst1.data;
+package br.com.ud851.popmoviesst1.data.vos;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by Herlygenes Pinto on 09/12/2017.
  */
 
-public class Movie implements Parcelable{
+public class MovieVO implements Parcelable{
 
     public static String ID = "id";
     public static String VOTE_AVERAGE = "vote_average";
@@ -28,7 +28,7 @@ public class Movie implements Parcelable{
     private String overview;
     private String releaseDate;
 
-    public Movie(String id, String voteAverage, String title, String popularity, String posterPath, String originalLanguage, String overview, String releaseDate) {
+    public MovieVO(String id, String voteAverage, String title, String popularity, String posterPath, String originalLanguage, String overview, String releaseDate) {
         this.id = id;
         this.voteAverage = voteAverage;
         this.title = title;
@@ -39,7 +39,7 @@ public class Movie implements Parcelable{
         this.releaseDate = releaseDate;
     }
 
-    public Movie(){
+    public MovieVO(){
         this.id = "";
         this.voteAverage = "";
         this.title = "";
@@ -50,7 +50,7 @@ public class Movie implements Parcelable{
         this.releaseDate = "";
     }
 
-    protected Movie(Parcel in) {
+    protected MovieVO(Parcel in) {
         id = in.readString();
         voteAverage = in.readString();
         title = in.readString();
@@ -61,15 +61,15 @@ public class Movie implements Parcelable{
         releaseDate = in.readString();
     }
 
-    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+    public static final Creator<MovieVO> CREATOR = new Creator<MovieVO>() {
         @Override
-        public Movie createFromParcel(Parcel in) {
-            return new Movie(in);
+        public MovieVO createFromParcel(Parcel in) {
+            return new MovieVO(in);
         }
 
         @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
+        public MovieVO[] newArray(int size) {
+            return new MovieVO[size];
         }
     };
 
