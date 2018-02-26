@@ -77,14 +77,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
         service.execute(args);
     }
 
-    private ArrayList<String> getYoutubeUrls(){
-        ArrayList<String> urls = new ArrayList<>();
-        for (TrailerVO trailer : trailers){
-            urls.add(YoutubeUtils.YOUTUBE_BASE_URL + trailer.getKey());
-        }
-        return urls;
-    }
-
     @Override
     public void processFinish(Object output) {
         if(output != null){

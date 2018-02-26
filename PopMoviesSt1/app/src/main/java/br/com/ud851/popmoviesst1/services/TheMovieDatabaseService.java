@@ -45,7 +45,7 @@ public class TheMovieDatabaseService extends AsyncTask<String, String, List<Obje
                 URL searchUrl = TMDBUtils.buildSearchForTrailersUrl(movieId);
                 tmdbSearchResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
                 if (tmdbSearchResults != null && !tmdbSearchResults.equals("")) {
-                    return JSONUtils.populateTrailersFromJSONString(tmdbSearchResults);
+                    return JSONUtils.populateTrailersFromJSONString(tmdbSearchResults, movieId);
                 }
             }
         } catch (IOException e) {

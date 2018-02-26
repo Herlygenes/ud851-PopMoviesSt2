@@ -29,7 +29,7 @@
 
         <provider
             android:authorities="br.com.ud851.popmoviesst1"
-            android:name="br.com.ud851.popmoviesst1.data.providers.TMDBContentProvider"
+            android:name=".data.providers.TMDBContentProvider"
             android:exported="false"/>
     </application>
 

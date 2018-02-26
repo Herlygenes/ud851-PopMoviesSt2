@@ -33,14 +33,14 @@ public class JSONUtils {
         return movies;
     }
 
-    public static List<Object> populateTrailersFromJSONString(String jsonResponse){
+    public static List<Object> populateTrailersFromJSONString(String jsonResponse, String movieId){
         NO_DATA_FOUND = App.getContext().getResources().getString(R.string.no_data_found);
         List<Object> trailers = new ArrayList<>();
         try {
             JSONObject jsonTMDBResponse = new JSONObject(jsonResponse);
             JSONArray jsonArrayMovies = jsonTMDBResponse.getJSONArray("results");
             for(int i = 0; i < jsonArrayMovies.length(); i++){
-                trailers.add(generateTrailerFromJSONObject(jsonArrayMovies.getJSONObject(i)));
+                trailers.add(generateTrailerFromJSONObject(jsonArrayMovies.getJSONObject(i), movieId));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -65,7 +65,7 @@ public class JSONUtils {
         }
     }
 
-    private static TrailerVO generateTrailerFromJSONObject(JSONObject object) throws JSONException {
+    private static TrailerVO generateTrailerFromJSONObject(JSONObject object, String movieId) throws JSONException {
         if(object != null){
             return new TrailerVO(
                     object.optString(TrailerVO.ID),
@@ -75,7 +75,8 @@ public class JSONUtils {
                     object.optString(TrailerVO.NAME),
                     object.optString(TrailerVO.SITE),
                     object.optString(TrailerVO.SIZE),
-                    object.optString(TrailerVO.TYPE)
+                    object.optString(TrailerVO.TYPE),
+                    movieId
             );
         } else {
             return new TrailerVO();
