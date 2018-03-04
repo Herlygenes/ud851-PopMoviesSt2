@@ -11,8 +11,12 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.ud851.popmoviesst1.data.TMDBSQLHelper;
 import br.com.ud851.popmoviesst1.data.contracts.TMDBContract;
+import br.com.ud851.popmoviesst1.data.vos.MovieVO;
 
 import static br.com.ud851.popmoviesst1.data.contracts.TMDBContract.TabMovies.TABLE_NAME;
 
@@ -62,6 +66,16 @@ public class TMDBContentProvider extends ContentProvider {
                         projection,
                         selection,
                         selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+
+            case MOVIES_WITH_ID:
+                retCursor =  db.query(TABLE_NAME,
+                        projection,
+                        TMDBContract.TabMovies.COLUMN_MOVIE_ID + "=?",
+                        new String[]{uri.getPathSegments().get(1)},
                         null,
                         null,
                         sortOrder);
@@ -133,16 +147,13 @@ public class TMDBContentProvider extends ContentProvider {
         int match = sUriMatcher.match(uri);
         int itemDeleted;
 
-        String id;
         switch (match) {
             case MOVIES_WITH_ID:
-                id = uri.getPathSegments().get(1);
-                itemDeleted = db.delete(TMDBContract.TabMovies.TABLE_NAME, "_id=?", new String[]{id});
+                itemDeleted =  db.delete(TMDBContract.TabMovies.TABLE_NAME,TMDBContract.TabMovies.COLUMN_MOVIE_ID + "=?", new String[]{uri.getPathSegments().get(1)});
                 break;
 
             case TRAILERS_WITH_ID:
-                id = uri.getPathSegments().get(1);
-                itemDeleted = db.delete(TMDBContract.TabTrailers.TABLE_NAME, "_id=?", new String[]{id});
+                itemDeleted = db.delete(TMDBContract.TabTrailers.TABLE_NAME, TMDBContract.TabTrailers.COLUMN_TRAILER_ID + "=?", new String[]{uri.getPathSegments().get(1)});
                 break;
 
             default:
@@ -160,4 +171,37 @@ public class TMDBContentProvider extends ContentProvider {
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
+
+    public static List<MovieVO> getMoviesFromCursor(Cursor cursor){
+        List<MovieVO> movies = new ArrayList<>();
+        if(cursor != null && cursor.getCount() > 0){
+            while(cursor.moveToNext()){
+                movies.add(new MovieVO(
+                        cursor.getString(cursor.getColumnIndex(TMDBContract.TabMovies.COLUMN_MOVIE_ID)),
+                        cursor.getString(cursor.getColumnIndex(TMDBContract.TabMovies.COLUMN_VOTE_AVERAGE)),
+                        cursor.getString(cursor.getColumnIndex(TMDBContract.TabMovies.COLUMN_TITLE)),
+                        cursor.getString(cursor.getColumnIndex(TMDBContract.TabMovies.COLUMN_POPULARITY)),
+                        cursor.getString(cursor.getColumnIndex(TMDBContract.TabMovies.COLUMN_POSTER_PATH)),
+                        cursor.getString(cursor.getColumnIndex(TMDBContract.TabMovies.COLUMN_ORIGINAL_LANGUAGE)),
+                        cursor.getString(cursor.getColumnIndex(TMDBContract.TabMovies.COLUMN_OVERVIEW)),
+                        cursor.getString(cursor.getColumnIndex(TMDBContract.TabMovies.COLUMN_RELEASE_DATE))
+                ));
+            }
+        }
+        return movies;
+    }
+
+    public static ContentValues getContentValuesFromMovie(MovieVO movie){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TMDBContract.TabMovies.COLUMN_MOVIE_ID, movie.getId());
+        contentValues.put(TMDBContract.TabMovies.COLUMN_ORIGINAL_LANGUAGE, movie.getOriginalLanguage());
+        contentValues.put(TMDBContract.TabMovies.COLUMN_OVERVIEW, movie.getOverview());
+        contentValues.put(TMDBContract.TabMovies.COLUMN_POPULARITY, movie.getPopularity());
+        contentValues.put(TMDBContract.TabMovies.COLUMN_POSTER_PATH, movie.getPosterPath());
+        contentValues.put(TMDBContract.TabMovies.COLUMN_RELEASE_DATE, movie.getReleaseDate());
+        contentValues.put(TMDBContract.TabMovies.COLUMN_TITLE, movie.getTitle());
+        contentValues.put(TMDBContract.TabMovies.COLUMN_VOTE_AVERAGE, movie.getVoteAverage());
+        return contentValues;
+    }
+
 }

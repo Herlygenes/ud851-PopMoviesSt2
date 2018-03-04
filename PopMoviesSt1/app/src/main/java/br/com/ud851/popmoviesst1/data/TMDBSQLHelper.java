@@ -43,7 +43,6 @@ public class TMDBSQLHelper extends SQLiteOpenHelper{
                 TMDBContract.TabTrailers.COLUMN_NAME            + " TEXT NOT NULL, "                          +
                 TMDBContract.TabTrailers.COLUMN_ISO_639_1       + " TEXT NOT NULL, "                          +
                 TMDBContract.TabTrailers.COLUMN_ISO_3166_1      + " REAL NOT NULL, "                          +
-                TMDBContract.TabTrailers.COLUMN_SITE            + " REAL NOT NULL, "                          +
                 TMDBContract.TabTrailers.COLUMN_KEY             + " TEXT NOT NULL, "                          +
                 TMDBContract.TabTrailers.COLUMN_TYPE            + " TEXT NOT NULL, "                          +
                 TMDBContract.TabTrailers.COLUMN_SITE            + " TEXT NOT NULL, "                          +

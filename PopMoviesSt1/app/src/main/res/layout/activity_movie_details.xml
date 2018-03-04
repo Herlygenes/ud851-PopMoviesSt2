@@ -92,18 +92,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_trailer_label" />
 
-    <Button
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/bt_favorites"
-        android:layout_width="83dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="48dp"
+        android:layout_width="48sp"
+        android:layout_height="48sp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:singleLine="false"
-        android:text="@string/bt_favorites"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textSize="10sp"
+        android:background="#80FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/iv_movie_cover"
         app:layout_constraintTop_toBottomOf="@+id/tv_score"
-        android:layout_marginLeft="48dp" />
+        app:srcCompat="@drawable/star_unpressed"
+        android:layout_marginLeft="32dp" />
 
 </android.support.constraint.ConstraintLayout>

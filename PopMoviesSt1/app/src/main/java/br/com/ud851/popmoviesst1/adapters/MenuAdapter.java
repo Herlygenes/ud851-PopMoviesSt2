@@ -12,6 +12,7 @@ import android.widget.TextView;
 import br.com.ud851.popmoviesst1.R;
 import br.com.ud851.popmoviesst1.activities.MainActivity;
 import br.com.ud851.popmoviesst1.utils.App;
+import br.com.ud851.popmoviesst1.utils.StateHolder;
 import br.com.ud851.popmoviesst1.utils.TMDBUtils;
 
 /**
@@ -31,6 +32,7 @@ public final class MenuAdapter extends BaseAdapter {
         SortCategory(String name, Class<? extends Activity> activityClass) {
             this.activityClass = activityClass;
             this.name = name;
+            StateHolder.setState(name);
         }
 
         public void launch(Activity activity) {
@@ -39,8 +41,10 @@ public final class MenuAdapter extends BaseAdapter {
                 intent.putExtra(TMDBUtils.QUERY, TMDBUtils.POPULAR_QUERY);
             } else if(name.equals(activity.getResources().getString(R.string.menu_opt_top_rated))){
                 intent.putExtra(TMDBUtils.QUERY, TMDBUtils.TOP_RATED_QUERY);
+            } else if(name.equals(activity.getResources().getString(R.string.menu_opt_favorites))){
+                intent.putExtra(TMDBUtils.QUERY, TMDBUtils.FAVORITES);
             } else {
-                intent.putExtra(TMDBUtils.QUERY, TMDBUtils.TOP_RATED_QUERY);
+                intent.putExtra(TMDBUtils.QUERY, StateHolder.getState());
             }
             activity.startActivity(intent);
             activity.finish();
@@ -49,9 +53,7 @@ public final class MenuAdapter extends BaseAdapter {
 
     private final LayoutInflater inflater;
 
-    public MenuAdapter(Context context) {
-        inflater = LayoutInflater.from(context);
-    }
+    public MenuAdapter(Context context) { inflater = LayoutInflater.from(context); }
 
     @Override public int getCount() {
         return SortCategory.values().length;
