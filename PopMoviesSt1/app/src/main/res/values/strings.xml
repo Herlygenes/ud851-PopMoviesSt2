@@ -16,6 +16,7 @@
     <string name="menu_opt_favorites">Favorites</string>
     <string name="youtube_label" translatable="false">Youtube:</string>
     <string name="trailers_label" >Trailers:</string>
+    <string name="reviews_label" >Comments:</string>
     <string name="bt_favorites" >MARK AS FAVORITE</string>
     <string name="toast_added_to_favorites" > has been added to your favorites.</string>
     <string name="toast_removed_from_favorites" > has been removed from your favorites.</string>

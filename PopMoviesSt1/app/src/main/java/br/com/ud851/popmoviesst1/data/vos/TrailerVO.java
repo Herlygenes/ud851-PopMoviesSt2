@@ -25,9 +25,8 @@ public class TrailerVO implements Parcelable {
     private String site;
     private String size;
     private String type;
-    private String movieId;
 
-    public TrailerVO(String id, String iso6391, String iso31661, String key, String name, String site, String size, String type, String movieId) {
+    public TrailerVO(String id, String iso6391, String iso31661, String key, String name, String site, String size, String type) {
         this.id = id;
         this.iso6391 = iso6391;
         this.iso31661 = iso31661;
@@ -36,7 +35,6 @@ public class TrailerVO implements Parcelable {
         this.site = site;
         this.size = size;
         this.type = type;
-        this.movieId = movieId;
     }
 
     public TrailerVO() {
@@ -48,7 +46,6 @@ public class TrailerVO implements Parcelable {
         this.site = "";
         this.size = "";
         this.type = "";
-        this.movieId = "";
     }
 
     protected TrailerVO(Parcel in) {
@@ -60,7 +57,6 @@ public class TrailerVO implements Parcelable {
         site = in.readString();
         size = in.readString();
         type = in.readString();
-        movieId = in.readString();
     }
 
     public static final Creator<TrailerVO> CREATOR = new Creator<TrailerVO>() {
@@ -139,9 +135,6 @@ public class TrailerVO implements Parcelable {
         this.type = type;
     }
 
-    public String getMovieId(){ return movieId; }
-
-    public void setMovieId(String movieId){ this.movieId = movieId; }
     @Override
     public int describeContents() {return 0;}
 
@@ -155,6 +148,5 @@ public class TrailerVO implements Parcelable {
         parcel.writeString(site);
         parcel.writeString(size);
         parcel.writeString(type);
-        parcel.writeString(movieId);
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 import br.com.ud851.popmoviesst1.R;
 import br.com.ud851.popmoviesst1.data.vos.MovieVO;
+import br.com.ud851.popmoviesst1.data.vos.ReviewVO;
 import br.com.ud851.popmoviesst1.data.vos.TrailerVO;
 
 /**
@@ -33,19 +34,34 @@ public class JSONUtils {
         return movies;
     }
 
-    public static List<Object> populateTrailersFromJSONString(String jsonResponse, String movieId){
+    public static List<Object> populateTrailersFromJSONString(String jsonResponse){
         NO_DATA_FOUND = App.getContext().getResources().getString(R.string.no_data_found);
         List<Object> trailers = new ArrayList<>();
         try {
             JSONObject jsonTMDBResponse = new JSONObject(jsonResponse);
             JSONArray jsonArrayMovies = jsonTMDBResponse.getJSONArray("results");
             for(int i = 0; i < jsonArrayMovies.length(); i++){
-                trailers.add(generateTrailerFromJSONObject(jsonArrayMovies.getJSONObject(i), movieId));
+                trailers.add(generateTrailerFromJSONObject(jsonArrayMovies.getJSONObject(i)));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return trailers;
+    }
+
+    public static List<Object> populateReviewsFromJSONString(String jsonResponse){
+        NO_DATA_FOUND = App.getContext().getResources().getString(R.string.no_data_found);
+        List<Object> reviews = new ArrayList<>();
+        try {
+            JSONObject jsonTMDBResponse = new JSONObject(jsonResponse);
+            JSONArray jsonArrayMovies = jsonTMDBResponse.getJSONArray("results");
+            for(int i = 0; i < jsonArrayMovies.length(); i++){
+                reviews.add(generateReviewFromJSONObject(jsonArrayMovies.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return reviews;
     }
 
     private static MovieVO generateMovieFromJSONObject(JSONObject object) throws JSONException {
@@ -65,7 +81,7 @@ public class JSONUtils {
         }
     }
 
-    private static TrailerVO generateTrailerFromJSONObject(JSONObject object, String movieId) throws JSONException {
+    private static TrailerVO generateTrailerFromJSONObject(JSONObject object) throws JSONException {
         if(object != null){
             return new TrailerVO(
                     object.optString(TrailerVO.ID),
@@ -75,11 +91,23 @@ public class JSONUtils {
                     object.optString(TrailerVO.NAME),
                     object.optString(TrailerVO.SITE),
                     object.optString(TrailerVO.SIZE),
-                    object.optString(TrailerVO.TYPE),
-                    movieId
+                    object.optString(TrailerVO.TYPE)
             );
         } else {
             return new TrailerVO();
+        }
+    }
+
+    private static ReviewVO generateReviewFromJSONObject(JSONObject object) throws JSONException {
+        if(object != null){
+            return new ReviewVO(
+                    object.optString(ReviewVO.ID),
+                    object.optString(ReviewVO.AUTHOR),
+                    object.optString(ReviewVO.CONTENT),
+                    object.optString(ReviewVO.URL)
+            );
+        } else {
+            return new ReviewVO();
         }
     }
 }
