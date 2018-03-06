@@ -8,8 +8,6 @@ import java.net.URL;
 import java.util.List;
 
 import br.com.ud851.popmoviesst1.R;
-import br.com.ud851.popmoviesst1.data.TMDBMovie;
-import br.com.ud851.popmoviesst1.data.vos.TrailerVO;
 import br.com.ud851.popmoviesst1.interfaces.AsyncTaskDelegate;
 import br.com.ud851.popmoviesst1.utils.JSONUtils;
 import br.com.ud851.popmoviesst1.utils.NetworkUtils;

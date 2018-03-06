@@ -47,12 +47,12 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
     private static String CURRENT_SERVICE;
 
     private TMDBMovie movie;
-    private TextView tv_movie_title;
-    private TextView tv_year;
-    private TextView tv_score;
-    private TextView tv_overview;
-    private ImageView iv_movie_cover;
-    private AppCompatImageButton ib_favorite;
+    private TextView tvMovieTitle;
+    private TextView tvYear;
+    private TextView tvScore;
+    private TextView tvOverview;
+    private ImageView ivMovieCover;
+    private AppCompatImageButton ibFavorite;
 
     private boolean inFavorites;
 
@@ -69,22 +69,22 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
         super.onCreate(savedInstanceState);
         String posterPath;
         setContentView(R.layout.activity_movie_details);
-        tv_movie_title = (TextView) findViewById(R.id.tv_movie_title);
-        tv_year = (TextView) findViewById(R.id.tv_year);
-        tv_score = (TextView) findViewById(R.id.tv_score);
-        tv_overview = (TextView) findViewById(R.id.tv_overview);
-        iv_movie_cover = (ImageView) findViewById(R.id.iv_movie_cover);
+        tvMovieTitle = (TextView) findViewById(R.id.tv_movie_title);
+        tvYear = (TextView) findViewById(R.id.tv_year);
+        tvScore = (TextView) findViewById(R.id.tv_score);
+        tvOverview = (TextView) findViewById(R.id.tv_overview);
+        ivMovieCover = (ImageView) findViewById(R.id.iv_movie_cover);
         Intent intent = getIntent();
 
         if(intent.hasExtra(MovieVO.PARCELABLE_KEY)){
             movie = new TMDBMovie((MovieVO)intent.getParcelableExtra(MovieVO.PARCELABLE_KEY));
             posterPath = TMDBUtils.IMAGE_BASE_URL + TMDBUtils.IMAGE_SIZE_W185 + movie.getPosterPath();
             Log.i("POSTER_URL", posterPath);
-            tv_movie_title.setText(movie.getTitle());
-            tv_year.setText(movie.getReleaseDate().substring(0, 4));
-            tv_score.setText(movie.getVoteAverage() + SCORE_RATIO);
-            tv_overview.setText(movie.getOverview());
-            Picasso.with(this).load(posterPath).into(iv_movie_cover);
+            tvMovieTitle.setText(movie.getTitle());
+            tvYear.setText(movie.getReleaseDate().substring(0, 4));
+            tvScore.setText(movie.getVoteAverage() + SCORE_RATIO);
+            tvOverview.setText(movie.getOverview());
+            Picasso.with(this).load(posterPath).into(ivMovieCover);
             getTrailersFromTMDB();
             setUpFavoriteButton();
         }
@@ -97,7 +97,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
 
         inFavorites = TMDBContentProvider.getMoviesFromCursor(cursor).size() > 0;
 
-        ib_favorite.setImageDrawable(inFavorites ?
+        ibFavorite.setImageDrawable(inFavorites ?
                 getResources().getDrawable(R.drawable.star_pressed) :
                 getResources().getDrawable(R.drawable.star_unpressed));
 
@@ -105,9 +105,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
     }
 
     private void setUpFavoriteButton(){
-        ib_favorite = (AppCompatImageButton) findViewById(R.id.bt_favorites);
+        ibFavorite = (AppCompatImageButton) findViewById(R.id.bt_favorites);
         checkFavorites();
-        ib_favorite.setOnClickListener(new View.OnClickListener() {
+        ibFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!inFavorites){
@@ -123,7 +123,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
         Uri uri = getContentResolver().insert(TMDBContract.TabMovies.CONTENT_URI, TMDBContentProvider.getContentValuesFromMovie(this.movie));
         if(uri != null){
             inFavorites = true;
-            ib_favorite.setImageDrawable(getResources().getDrawable(R.drawable.star_pressed));
+            ibFavorite.setImageDrawable(getResources().getDrawable(R.drawable.star_pressed));
             Toast.makeText(MovieDetailsActivity.this, movie.getTitle() + getString(R.string.toast_added_to_favorites), Toast.LENGTH_LONG).show();
         }
     }
@@ -134,7 +134,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
         int itemDeleted = getContentResolver().delete(uri, null, null);
         if(itemDeleted > 0){
             inFavorites = false;
-            ib_favorite.setImageDrawable(getResources().getDrawable(R.drawable.star_unpressed));
+            ibFavorite.setImageDrawable(getResources().getDrawable(R.drawable.star_unpressed));
             Toast.makeText(MovieDetailsActivity.this, movie.getTitle() + getString(R.string.toast_removed_from_favorites), Toast.LENGTH_LONG).show();
         }
     }
@@ -193,7 +193,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
                 LayoutUtils.setListViewHeightBasedOnChildren(lvReview);
             }
         }else{
-            Toast.makeText(this, R.string.no_internet, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.toast_no_internet, Toast.LENGTH_LONG).show();
         }
     }
 }

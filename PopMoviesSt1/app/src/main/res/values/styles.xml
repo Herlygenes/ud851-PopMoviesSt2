@@ -14,13 +14,11 @@
     <style name="Widget.ActionBarTitle" parent="android:Widget.TextView">
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
-        <!-- Use 'dp' so that the user's font preference doesn't affect the action bar. -->
         <item name="android:textSize">19sp</item>
         <item name="android:textColor">@color/action_bar_text</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
-        <!--<item name="android:fontFamily">sans-serif-light</item>-->
         <item name="android:textStyle">italic</item>
     </style>
 
@@ -29,7 +27,6 @@
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:textColor">@color/action_bar_text</item>
-        <!-- Use 'dp' so that the user's font preference doesn't affect the action bar. -->
         <item name="android:textSize">13sp</item>
         <item name="android:background">@drawable/overlay_selector</item>
     </style>
@@ -41,5 +38,21 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/action_bar_text</item>
     </style>
+
+    <style name="Separator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:background">@android:color/darker_gray</item>
+    </style>
+
+    <style name="MovieTitle">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">@color/movie_title_text_color</item>
+        <item name="android:padding">24dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/movie_title_text_background</item>
+    </style>
+
 
 </resources>

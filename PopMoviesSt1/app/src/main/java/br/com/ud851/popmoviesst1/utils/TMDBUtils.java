@@ -17,7 +17,6 @@ public class TMDBUtils {
     public final static String GET_ALL_MOVIES = "get_all_movies";
     public final static String GET_MOVIE_TRAILERS = "get_movie_trailers";
     public final static String GET_MOVIE_COMMENTS = "get_movie_comments";
-    public final static String GET_MOVIE_COMPLEMENTS = "get_movie_complements";
     public final static String POPULAR_QUERY = "popular";
     public final static String TOP_RATED_QUERY = "top_rated";
     public final static String FAVORITES = "favorites";

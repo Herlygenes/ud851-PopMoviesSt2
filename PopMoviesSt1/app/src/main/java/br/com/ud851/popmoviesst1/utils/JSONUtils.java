@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.ud851.popmoviesst1.R;
 import br.com.ud851.popmoviesst1.data.vos.MovieVO;
 import br.com.ud851.popmoviesst1.data.vos.ReviewVO;
 import br.com.ud851.popmoviesst1.data.vos.TrailerVO;
@@ -17,10 +16,7 @@ import br.com.ud851.popmoviesst1.data.vos.TrailerVO;
  */
 
 public class JSONUtils {
-    private static String NO_DATA_FOUND;
-
     public static List<Object> populateMoviesFromJSONString(String jsonResponse){
-        NO_DATA_FOUND = App.getContext().getResources().getString(R.string.no_data_found);
         List<Object> movies = new ArrayList<>();
         try {
             JSONObject jsonTMDBResponse = new JSONObject(jsonResponse);
@@ -35,7 +31,6 @@ public class JSONUtils {
     }
 
     public static List<Object> populateTrailersFromJSONString(String jsonResponse){
-        NO_DATA_FOUND = App.getContext().getResources().getString(R.string.no_data_found);
         List<Object> trailers = new ArrayList<>();
         try {
             JSONObject jsonTMDBResponse = new JSONObject(jsonResponse);
@@ -50,7 +45,6 @@ public class JSONUtils {
     }
 
     public static List<Object> populateReviewsFromJSONString(String jsonResponse){
-        NO_DATA_FOUND = App.getContext().getResources().getString(R.string.no_data_found);
         List<Object> reviews = new ArrayList<>();
         try {
             JSONObject jsonTMDBResponse = new JSONObject(jsonResponse);

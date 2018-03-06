@@ -8,4 +8,7 @@
     <color name="movie_title_text_background">#009E60</color>
     <color name="overlay_background">#90000000</color>
     <color name="action_bar_text">#ffffffff</color>
+    <color name="star_color">#feaa0c</color>
+    <color name="star_bg_color">#80FFFFFF</color>
+    <color name="transparent">@null</color>
 </resources>

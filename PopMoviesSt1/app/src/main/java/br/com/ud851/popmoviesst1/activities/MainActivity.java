@@ -57,10 +57,10 @@ public class MainActivity extends MenuActivity implements AsyncTaskDelegate{
             if(!TMDBUtils.TMDB_API_KEY.equals("")){
                 getMovieData();
             } else {
-                Toast.makeText(context, R.string.api_key_missing, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.toast_api_key_missing, Toast.LENGTH_LONG).show();
             }
         } else {
-            Toast.makeText(context, R.string.no_internet, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.toast_no_internet, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -146,7 +146,7 @@ public class MainActivity extends MenuActivity implements AsyncTaskDelegate{
             movies = (List<MovieVO>) output;
             populateMoviesGridView();
         }else{
-            Toast.makeText(this, R.string.no_internet, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.toast_no_internet, Toast.LENGTH_LONG).show();
         }
     }
 }
