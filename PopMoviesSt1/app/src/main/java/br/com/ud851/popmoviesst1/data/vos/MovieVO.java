@@ -3,6 +3,8 @@ package br.com.ud851.popmoviesst1.data.vos;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Herlygenes Pinto on 09/12/2017.
  */
@@ -19,13 +21,28 @@ public class MovieVO implements Parcelable{
     public static String RELEASE_DATE = "release_date";
     public static String PARCELABLE_KEY = "parcelable";
 
+    @SerializedName("id")
     private String id;
+
+    @SerializedName("vote_average")
     private String voteAverage;
+
+    @SerializedName("title")
     private String title;
+
+    @SerializedName("popularity")
     private String popularity;
+
+    @SerializedName("poster_path")
     private String posterPath;
+
+    @SerializedName("original_language")
     private String originalLanguage;
+
+    @SerializedName("overview")
     private String overview;
+
+    @SerializedName("release_date")
     private String releaseDate;
 
     public MovieVO(String id, String voteAverage, String title, String popularity, String posterPath, String originalLanguage, String overview, String releaseDate) {

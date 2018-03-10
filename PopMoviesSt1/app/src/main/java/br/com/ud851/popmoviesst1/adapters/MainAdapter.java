@@ -20,11 +20,11 @@ import static android.widget.ImageView.ScaleType.CENTER_CROP;
  */
 
 public final class MainAdapter extends BaseAdapter {
-    private final Context context;
+    private final Context mContext;
     private final List<String> urls = new ArrayList<>();
 
     public MainAdapter(Context context, String[] images) {
-        this.context = context;
+        this.mContext = context;
         Collections.addAll(urls, images);
     }
 
@@ -47,7 +47,7 @@ public final class MainAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         MovieCoverImageView view = (MovieCoverImageView) convertView;
         if (view == null) {
-            view = new MovieCoverImageView(context);
+            view = new MovieCoverImageView(mContext);
             view.setScaleType(CENTER_CROP);
         }
 
@@ -55,12 +55,12 @@ public final class MainAdapter extends BaseAdapter {
         String url = (String)getItem(position);
 
         // Trigger the download of the URL asynchronously into the image view.
-        Picasso.with(context) //
+        Picasso.with(mContext) //
                 .load(url) //
                 .placeholder(R.drawable.placeholder) //
                 .error(R.drawable.error) //
                 .fit() //
-                .tag(context) //
+                .tag(mContext) //
                 .into(view);
 
         return view;

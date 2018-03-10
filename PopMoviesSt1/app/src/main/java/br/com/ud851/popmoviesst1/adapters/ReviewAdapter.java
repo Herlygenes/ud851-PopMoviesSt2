@@ -18,11 +18,11 @@ import br.com.ud851.popmoviesst1.data.vos.ReviewVO;
  */
 
 public class ReviewAdapter extends BaseAdapter {
-    private final Context context;
+    private final Context mContext;
     private List<ReviewVO> reviews = new ArrayList<>();
 
     public ReviewAdapter(Context context, List<ReviewVO> reviews) {
-        this.context = context;
+        this.mContext = context;
         this.reviews = reviews;
     }
 
@@ -46,7 +46,7 @@ public class ReviewAdapter extends BaseAdapter {
         ReviewVO review = (ReviewVO) getItem(position);
 
         if(convertView == null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.activity_movie_review, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.activity_movie_review, parent, false);
         }
 
         TextView tv_author = (TextView) convertView.findViewById(R.id.tv_author_name);

@@ -12,26 +12,26 @@ import br.com.ud851.popmoviesst1.data.vos.TrailerVO;
 
 public class TMDBMovie extends MovieVO {
 
-    private List<ReviewVO> reviews;
-    private List<TrailerVO> trailers;
+    private List<ReviewVO> mReviews;
+    private List<TrailerVO> mTrailers;
 
     public TMDBMovie(MovieVO movie) {
         super(movie.getId(), movie.getVoteAverage(), movie.getTitle(), movie.getPopularity(), movie.getPosterPath(), movie.getOriginalLanguage(), movie.getOverview(), movie.getReleaseDate());
     }
 
-    public List<ReviewVO> getReviews() {
-        return reviews;
+    public List<ReviewVO> getmReviews() {
+        return mReviews;
     }
 
-    public void setReviews(List<ReviewVO> reviews) {
-        this.reviews = reviews;
+    public void setmReviews(List<ReviewVO> mReviews) {
+        this.mReviews = mReviews;
     }
 
-    public List<TrailerVO> getTrailers() {
-        return trailers;
+    public List<TrailerVO> getmTrailers() {
+        return mTrailers;
     }
 
-    public void setTrailers(List<TrailerVO> trailers) {
-        this.trailers = trailers;
+    public void setmTrailers(List<TrailerVO> mTrailers) {
+        this.mTrailers = mTrailers;
     }
 }

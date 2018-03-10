@@ -21,6 +21,4 @@ public final class MovieCoverImageView extends AppCompatImageView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension(getMeasuredWidth(), getMeasuredHeight());
     }
-
-
 }

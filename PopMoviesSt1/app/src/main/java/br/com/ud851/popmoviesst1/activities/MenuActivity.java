@@ -24,13 +24,14 @@ import static android.view.View.VISIBLE;
  */
 
 abstract class MenuActivity extends FragmentActivity {
-    private ToggleButton showHide;
-    private FrameLayout sampleContent;
+    private static String LOG_TAG = MenuActivity.class.getSimpleName();
+    private ToggleButton mShowHide;
+    private FrameLayout mSampleContent;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.menu_activity);
-        sampleContent = (FrameLayout) findViewById(R.id.sample_content);
+        mSampleContent = (FrameLayout) findViewById(R.id.sample_content);
 
         final ListView activityList = (ListView) findViewById(R.id.activity_list);
         final MenuAdapter adapter = new MenuAdapter(this);
@@ -42,8 +43,8 @@ abstract class MenuActivity extends FragmentActivity {
             }
         });
 
-        showHide = (ToggleButton) findViewById(R.id.faux_action_bar_control);
-        showHide.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mShowHide = (ToggleButton) findViewById(R.id.faux_action_bar_control);
+        mShowHide.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 activityList.setVisibility(checked ? VISIBLE : GONE);
             }
@@ -53,28 +54,28 @@ abstract class MenuActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i("MenuActivity", "onDestroy(); Context:" + this.getBaseContext().toString());
+        Log.i(LOG_TAG, "onDestroy(); Context:" + this.getBaseContext().toString());
         Picasso.with(this.getBaseContext()).cancelTag(this);
     }
 
     @Override public void onBackPressed() {
-        if (showHide.isChecked()) {
-            showHide.setChecked(false);
+        if (mShowHide.isChecked()) {
+            mShowHide.setChecked(false);
         } else {
             super.onBackPressed();
         }
     }
 
     @Override public void setContentView(int layoutResID) {
-        getLayoutInflater().inflate(layoutResID, sampleContent);
+        getLayoutInflater().inflate(layoutResID, mSampleContent);
     }
 
     @Override public void setContentView(View view) {
-        sampleContent.addView(view);
+        mSampleContent.addView(view);
     }
 
     @Override public void setContentView(View view, ViewGroup.LayoutParams params) {
-        sampleContent.addView(view, params);
+        mSampleContent.addView(view, params);
     }
 }
 

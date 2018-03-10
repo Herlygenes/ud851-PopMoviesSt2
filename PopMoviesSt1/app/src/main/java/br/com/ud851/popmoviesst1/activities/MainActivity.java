@@ -7,6 +7,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -32,36 +34,60 @@ import br.com.ud851.popmoviesst1.utils.TMDBUtils;
  */
 
 public class MainActivity extends MenuActivity implements AsyncTaskDelegate{
-    private List<MovieVO> movies = new ArrayList<>();
-    private Context context;
-    private TextView menuTitle;
-
-    private String NO_DATA_FOUND;
+    private static String LOG_TAG = MainActivity.class.getSimpleName();
+    private static String CURRENT_TILE = "current_tile";
+    private static int TILE_WIDTH = 512;
+    private List<MovieVO> mMovies = new ArrayList<>();
+    private Context mContext;
+    private TextView mMenuTitle;
+    private TextView mTvNoInternet;
+    private GridView mGvActivityMain;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
-        context = MainActivity.this;
         super.onCreate(savedInstanceState);
+        mContext = MainActivity.this;
         setContentView(R.layout.activity_main);
-        menuTitle = (TextView) findViewById(R.id.tv_menu);
+        mMenuTitle = (TextView) findViewById(R.id.tv_menu);
+        mTvNoInternet =  (TextView) findViewById(R.id.tv_no_internet);
+        mGvActivityMain = (GridView) findViewById(R.id.grid_view);
+        mGvActivityMain.setNumColumns(calculateNumberOfColumns());
 
-        if(StateHolder.getLastActivity() == null){
-            StateHolder.setLastActivity(MainActivity.class.getName());
+        if(StateHolder.getsLastActivity() == null){
+            StateHolder.setsLastActivity(MainActivity.class.getName());
         }
 
-        NO_DATA_FOUND = getString(R.string.no_data_found);
-
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
         if(activeNetwork != null && activeNetwork.isConnectedOrConnecting()){
+            mTvNoInternet.setVisibility(TextView.INVISIBLE);
             if(!TMDBUtils.TMDB_API_KEY.equals("")){
                 getMovieData();
             } else {
-                Toast.makeText(context, R.string.toast_api_key_missing, Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, R.string.toast_api_key_missing, Toast.LENGTH_LONG).show();
             }
         } else {
-            Toast.makeText(context, R.string.toast_no_internet, Toast.LENGTH_LONG).show();
+            mTvNoInternet.setVisibility(TextView.VISIBLE);
+            Toast.makeText(mContext, R.string.toast_no_internet, Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(CURRENT_TILE, mGvActivityMain.getFirstVisiblePosition());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        mGvActivityMain.setSelection(savedInstanceState.getInt(CURRENT_TILE));
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    private int calculateNumberOfColumns(){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.widthPixels / TILE_WIDTH;
     }
 
     private void getMovieData(){
@@ -71,23 +97,23 @@ public class MainActivity extends MenuActivity implements AsyncTaskDelegate{
         if(intent.hasExtra(TMDBUtils.QUERY)){
             searchQuery = intent.getStringExtra(TMDBUtils.QUERY);
         } else {
-            if(StateHolder.getLastActivity().equals(MovieDetailsActivity.class.getName())){
-                searchQuery = StateHolder.getState();
-                StateHolder.setLastActivity(MainActivity.class.getName());
+            if(StateHolder.getsLastActivity().equals(MovieDetailsActivity.class.getName())){
+                searchQuery = StateHolder.getsState();
+                StateHolder.setsLastActivity(MainActivity.class.getName());
             } else {
                 searchQuery = TMDBUtils.POPULAR_QUERY;
             }
         }
-        StateHolder.setState(searchQuery);
+        StateHolder.setsState(searchQuery);
         populateMovies(searchQuery);
     }
 
     private void getMovieDateFromDatabase() {
         Uri uri = TMDBContract.TabMovies.CONTENT_URI;
         Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        this.movies = TMDBContentProvider.getMoviesFromCursor(cursor);
-        if(this.movies.size() == 0){
-            Toast.makeText(context, getString(R.string.toast_no_favorite_yet), Toast.LENGTH_LONG).show();
+        this.mMovies = TMDBContentProvider.getMoviesFromCursor(cursor);
+        if(this.mMovies.size() == 0){
+            Toast.makeText(mContext, getString(R.string.toast_no_favorite_yet), Toast.LENGTH_LONG).show();
         }
         cursor.close();
     }
@@ -98,7 +124,7 @@ public class MainActivity extends MenuActivity implements AsyncTaskDelegate{
             populateMoviesGridView();
         } else {
             String[] args = {TMDBUtils.GET_ALL_MOVIES, searchQuery};
-            TheMovieDatabaseService service = new TheMovieDatabaseService(context, this);
+            TheMovieDatabaseService service = new TheMovieDatabaseService(mContext, this);
             service.execute(args);
         }
 
@@ -107,23 +133,23 @@ public class MainActivity extends MenuActivity implements AsyncTaskDelegate{
 
     private void setMenuTitleByQuery(String searchQuery){
         if(searchQuery.equals(TMDBUtils.POPULAR_QUERY)){
-            menuTitle.setText(getString(R.string.menu_opt_most_popular));
+            mMenuTitle.setText(getString(R.string.menu_opt_most_popular));
         } else if(searchQuery.equals(TMDBUtils.TOP_RATED_QUERY)){
-            menuTitle.setText(getString(R.string.menu_opt_top_rated));
+            mMenuTitle.setText(getString(R.string.menu_opt_top_rated));
         } else {
-            menuTitle.setText(getString(R.string.menu_opt_favorites));
+            mMenuTitle.setText(getString(R.string.menu_opt_favorites));
         }
     }
 
     private void populateMoviesGridView(){
         GridView gv = (GridView) findViewById(R.id.grid_view);
-        gv.setAdapter(new MainAdapter(context, getImagesURLs()));
-        gv.setOnScrollListener(new ScrollListener(context));
+        gv.setAdapter(new MainAdapter(mContext, getImagesURLs()));
+        gv.setOnScrollListener(new ScrollListener(mContext));
 
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MovieVO movie = movies.get(position);
+                MovieVO movie = mMovies.get(position);
                 Context context = MainActivity.this;
                 Intent startChildActivityIntent = new Intent(context, MovieDetailsActivity.class);
                 startChildActivityIntent.putExtra(MovieVO.PARCELABLE_KEY, movie);
@@ -133,9 +159,9 @@ public class MainActivity extends MenuActivity implements AsyncTaskDelegate{
     }
 
     private String[] getImagesURLs(){
-        String[] urls = new String[movies.size()];
-        for (int i = 0; i < movies.size(); i++){
-            urls[i] = TMDBUtils.IMAGE_BASE_URL + TMDBUtils.IMAGE_SIZE_W185 + movies.get(i).getPosterPath();
+        String[] urls = new String[mMovies.size()];
+        for (int i = 0; i < mMovies.size(); i++){
+            urls[i] = TMDBUtils.IMAGE_BASE_URL + TMDBUtils.IMAGE_SIZE_W185 + mMovies.get(i).getPosterPath();
         }
         return urls;
     }
@@ -143,7 +169,7 @@ public class MainActivity extends MenuActivity implements AsyncTaskDelegate{
     @Override
     public void processFinish(Object output) {
         if(output != null){
-            movies = (List<MovieVO>) output;
+            mMovies = (List<MovieVO>) output;
             populateMoviesGridView();
         }else{
             Toast.makeText(this, R.string.toast_no_internet, Toast.LENGTH_LONG).show();

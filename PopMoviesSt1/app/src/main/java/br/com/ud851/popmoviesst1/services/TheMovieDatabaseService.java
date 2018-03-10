@@ -19,14 +19,12 @@ import br.com.ud851.popmoviesst1.utils.TMDBUtils;
 
 public class TheMovieDatabaseService extends AsyncTask<String, String, List<Object>> {
 
-    private AsyncTaskDelegate delegate = null;
-    private Context context;
-    private String NO_DATA_FOUND;
+    private AsyncTaskDelegate mDelegate = null;
+    private Context mContext;
 
     public TheMovieDatabaseService(Context context, AsyncTaskDelegate responder) {
-        delegate = responder;
-        this.context = context;
-        NO_DATA_FOUND = context.getString(R.string.no_data_found);
+        mDelegate = responder;
+        this.mContext = context;
     }
 
     @Override
@@ -64,8 +62,8 @@ public class TheMovieDatabaseService extends AsyncTask<String, String, List<Obje
     @Override
     protected void onPostExecute(List<Object> data) {
         super.onPostExecute(data);
-        if(delegate != null){
-            delegate.processFinish(data);
+        if(mDelegate != null){
+            mDelegate.processFinish(data);
         }
     }
 }

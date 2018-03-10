@@ -5,10 +5,10 @@ package br.com.ud851.popmoviesst1.utils;
  */
 
 public class StateHolder {
-    private static String state;
-    private static String lastActivity;
-    public static String getState(){return state;}
-    public static void setState(String state){StateHolder.state = state;}
-    public static String getLastActivity(){return lastActivity;}
-    public static void setLastActivity(String lastActivity){StateHolder.lastActivity = lastActivity;}
+    private static String sState;
+    private static String sLastActivity;
+    public static String getsState(){return sState;}
+    public static void setsState(String state){StateHolder.sState = state;}
+    public static String getsLastActivity(){return sLastActivity;}
+    public static void setsLastActivity(String lastActivity){StateHolder.sLastActivity = lastActivity;}
 }

@@ -4,6 +4,7 @@
     <string name="sort">SORT</string>
     <string name="content_description_image">Movie cover</string>
     <string name="content_description_favorites" >Mark as favorite</string>
+    <string name="content_description_play_video" >Play video</string>
     <string name="no_data_found">No Data Found</string>
     <string name="lbl_movie_title">Movie Title</string>
     <string name="lbl_release_date">Release Date</string>

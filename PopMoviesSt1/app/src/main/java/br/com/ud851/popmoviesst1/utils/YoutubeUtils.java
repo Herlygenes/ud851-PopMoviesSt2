@@ -4,12 +4,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import br.com.ud851.popmoviesst1.data.vos.TrailerVO;
 
 /**
  * Created by Herlygenes Pinto on 20/02/2018.
@@ -27,5 +21,6 @@ public class YoutubeUtils {
             context.startActivity(appIntent);
         } catch (ActivityNotFoundException ex) {
             context.startActivity(webIntent);
-        }    }
+        }
+    }
 }

@@ -6,4 +6,6 @@
   <dimen name="widget_min_height">110dp</dimen>
   <dimen name="notification_icon_width_height">64dp</dimen>
   <dimen name="favorite_button_size">48dp</dimen>
+  <dimen name="tile_width">512</dimen>
+  <dimen name="no_internet_msg_padding_top">48dp</dimen>
 </resources>

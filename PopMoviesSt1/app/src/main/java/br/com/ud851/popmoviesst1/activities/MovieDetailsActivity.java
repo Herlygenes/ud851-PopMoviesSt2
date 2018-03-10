@@ -42,49 +42,49 @@ import br.com.ud851.popmoviesst1.utils.YoutubeUtils;
 
 public class MovieDetailsActivity extends AppCompatActivity implements AsyncTaskDelegate {
 
-    private String SCORE_RATIO = "/10";
-
+    private static String SCORE_RATIO = "/10";
     private static String CURRENT_SERVICE;
+    private static String LOG_TAG = MovieDetailsActivity.class.getSimpleName();
 
-    private TMDBMovie movie;
-    private TextView tvMovieTitle;
-    private TextView tvYear;
-    private TextView tvScore;
-    private TextView tvOverview;
-    private ImageView ivMovieCover;
-    private AppCompatImageButton ibFavorite;
+    private TMDBMovie mMovie;
+    private TextView mTvMovieTitle;
+    private TextView mTvYear;
+    private TextView mTvScore;
+    private TextView mTvOverview;
+    private ImageView mIvMovieCover;
+    private AppCompatImageButton mIbFavorite;
 
-    private boolean inFavorites;
+    private boolean mInFavorites;
 
-    private Context context;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         CURRENT_SERVICE = "";
 
-        context = MovieDetailsActivity.this;
+        mContext = MovieDetailsActivity.this;
 
-        StateHolder.setLastActivity(MovieDetailsActivity.class.getName());
+        StateHolder.setsLastActivity(MovieDetailsActivity.class.getName());
 
         super.onCreate(savedInstanceState);
         String posterPath;
         setContentView(R.layout.activity_movie_details);
-        tvMovieTitle = (TextView) findViewById(R.id.tv_movie_title);
-        tvYear = (TextView) findViewById(R.id.tv_year);
-        tvScore = (TextView) findViewById(R.id.tv_score);
-        tvOverview = (TextView) findViewById(R.id.tv_overview);
-        ivMovieCover = (ImageView) findViewById(R.id.iv_movie_cover);
+        mTvMovieTitle = (TextView) findViewById(R.id.tv_movie_title);
+        mTvYear = (TextView) findViewById(R.id.tv_year);
+        mTvScore = (TextView) findViewById(R.id.tv_score);
+        mTvOverview = (TextView) findViewById(R.id.tv_overview);
+        mIvMovieCover = (ImageView) findViewById(R.id.iv_movie_cover);
         Intent intent = getIntent();
 
         if(intent.hasExtra(MovieVO.PARCELABLE_KEY)){
-            movie = new TMDBMovie((MovieVO)intent.getParcelableExtra(MovieVO.PARCELABLE_KEY));
-            posterPath = TMDBUtils.IMAGE_BASE_URL + TMDBUtils.IMAGE_SIZE_W185 + movie.getPosterPath();
-            Log.i("POSTER_URL", posterPath);
-            tvMovieTitle.setText(movie.getTitle());
-            tvYear.setText(movie.getReleaseDate().substring(0, 4));
-            tvScore.setText(movie.getVoteAverage() + SCORE_RATIO);
-            tvOverview.setText(movie.getOverview());
-            Picasso.with(this).load(posterPath).into(ivMovieCover);
+            mMovie = new TMDBMovie((MovieVO)intent.getParcelableExtra(MovieVO.PARCELABLE_KEY));
+            posterPath = TMDBUtils.IMAGE_BASE_URL + TMDBUtils.IMAGE_SIZE_W185 + mMovie.getPosterPath();
+            Log.i(LOG_TAG, posterPath);
+            mTvMovieTitle.setText(mMovie.getTitle());
+            mTvYear.setText(mMovie.getReleaseDate().substring(0, 4));
+            mTvScore.setText(mMovie.getVoteAverage() + SCORE_RATIO);
+            mTvOverview.setText(mMovie.getOverview());
+            Picasso.with(this).load(posterPath).into(mIvMovieCover);
             getTrailersFromTMDB();
             setUpFavoriteButton();
         }
@@ -92,12 +92,12 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
 
     private void checkFavorites(){
         Uri uri = TMDBContract.TabMovies.CONTENT_URI;
-        uri = uri.buildUpon().appendPath(movie.getId()).build();
+        uri = uri.buildUpon().appendPath(mMovie.getId()).build();
         Cursor cursor = getContentResolver().query(uri, null, null, null, null);
 
-        inFavorites = TMDBContentProvider.getMoviesFromCursor(cursor).size() > 0;
+        mInFavorites = TMDBContentProvider.getMoviesFromCursor(cursor).size() > 0;
 
-        ibFavorite.setImageDrawable(inFavorites ?
+        mIbFavorite.setImageDrawable(mInFavorites ?
                 getResources().getDrawable(R.drawable.star_pressed) :
                 getResources().getDrawable(R.drawable.star_unpressed));
 
@@ -105,12 +105,12 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
     }
 
     private void setUpFavoriteButton(){
-        ibFavorite = (AppCompatImageButton) findViewById(R.id.bt_favorites);
+        mIbFavorite = (AppCompatImageButton) findViewById(R.id.bt_favorites);
         checkFavorites();
-        ibFavorite.setOnClickListener(new View.OnClickListener() {
+        mIbFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!inFavorites){
+                if(!mInFavorites){
                     markMovieAsFavorite();
                 } else {
                     unmarkMovieAsFavorite();
@@ -120,36 +120,36 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
     }
 
     private void markMovieAsFavorite(){
-        Uri uri = getContentResolver().insert(TMDBContract.TabMovies.CONTENT_URI, TMDBContentProvider.getContentValuesFromMovie(this.movie));
+        Uri uri = getContentResolver().insert(TMDBContract.TabMovies.CONTENT_URI, TMDBContentProvider.getContentValuesFromMovie(this.mMovie));
         if(uri != null){
-            inFavorites = true;
-            ibFavorite.setImageDrawable(getResources().getDrawable(R.drawable.star_pressed));
-            Toast.makeText(MovieDetailsActivity.this, movie.getTitle() + getString(R.string.toast_added_to_favorites), Toast.LENGTH_LONG).show();
+            mInFavorites = true;
+            mIbFavorite.setImageDrawable(getResources().getDrawable(R.drawable.star_pressed));
+            Toast.makeText(MovieDetailsActivity.this, mMovie.getTitle() + getString(R.string.toast_added_to_favorites), Toast.LENGTH_LONG).show();
         }
     }
 
     private void unmarkMovieAsFavorite(){
         Uri uri = TMDBContract.TabMovies.CONTENT_URI;
-        uri = uri.buildUpon().appendPath(movie.getId()).build();
+        uri = uri.buildUpon().appendPath(mMovie.getId()).build();
         int itemDeleted = getContentResolver().delete(uri, null, null);
         if(itemDeleted > 0){
-            inFavorites = false;
-            ibFavorite.setImageDrawable(getResources().getDrawable(R.drawable.star_unpressed));
-            Toast.makeText(MovieDetailsActivity.this, movie.getTitle() + getString(R.string.toast_removed_from_favorites), Toast.LENGTH_LONG).show();
+            mInFavorites = false;
+            mIbFavorite.setImageDrawable(getResources().getDrawable(R.drawable.star_unpressed));
+            Toast.makeText(MovieDetailsActivity.this, mMovie.getTitle() + getString(R.string.toast_removed_from_favorites), Toast.LENGTH_LONG).show();
         }
     }
 
     private void getTrailersFromTMDB(){
         CURRENT_SERVICE = TMDBUtils.GET_MOVIE_TRAILERS;
-        String[] args = {TMDBUtils.GET_MOVIE_TRAILERS, movie.getId()};
-        TheMovieDatabaseService service = new TheMovieDatabaseService(context, this);
+        String[] args = {TMDBUtils.GET_MOVIE_TRAILERS, mMovie.getId()};
+        TheMovieDatabaseService service = new TheMovieDatabaseService(mContext, this);
         service.execute(args);
     }
 
     private void getReviewsFromTMDB(){
         CURRENT_SERVICE = TMDBUtils.GET_MOVIE_COMMENTS;
-        String[] args = {TMDBUtils.GET_MOVIE_COMMENTS, movie.getId()};
-        TheMovieDatabaseService service = new TheMovieDatabaseService(context, this);
+        String[] args = {TMDBUtils.GET_MOVIE_COMMENTS, mMovie.getId()};
+        TheMovieDatabaseService service = new TheMovieDatabaseService(mContext, this);
         service.execute(args);
     }
 
@@ -157,17 +157,17 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
     public void processFinish(Object output) {
         if(output != null){
             if(CURRENT_SERVICE.equals(TMDBUtils.GET_MOVIE_TRAILERS)){
-                movie.setTrailers((List<TrailerVO>) output);
+                mMovie.setmTrailers((List<TrailerVO>) output);
                 ListView lvTrailer = (ListView) findViewById(R.id.trailer_list_view);
 
-                TrailerAdapter trailerAdapter = new TrailerAdapter(this, movie.getTrailers());
+                TrailerAdapter trailerAdapter = new TrailerAdapter(this, mMovie.getmTrailers());
 
                 lvTrailer.setAdapter(trailerAdapter);
 
                 lvTrailer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        TrailerVO trailer = movie.getTrailers().get(position);
+                        TrailerVO trailer = mMovie.getmTrailers().get(position);
                         YoutubeUtils.watchYoutubeVideo(MovieDetailsActivity.this, trailer.getKey());
                     }
                 });
@@ -175,10 +175,10 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
                 LayoutUtils.setListViewHeightBasedOnChildren(lvTrailer);
                 getReviewsFromTMDB();
             } else {
-                movie.setReviews((List<ReviewVO>) output);
+                mMovie.setmReviews((List<ReviewVO>) output);
                 ListView lvReview = (ListView) findViewById(R.id.reviews_list_view);
 
-                ReviewAdapter reviewAdapter = new ReviewAdapter(this, movie.getReviews());
+                ReviewAdapter reviewAdapter = new ReviewAdapter(this, mMovie.getmReviews());
 
                 lvReview.setAdapter(reviewAdapter);
 

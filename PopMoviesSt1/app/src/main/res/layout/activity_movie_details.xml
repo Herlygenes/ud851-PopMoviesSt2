@@ -13,7 +13,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context="br.com.ud851.popmoviesst1.activities.MovieDetailsActivity">
+            tools:mContext="br.com.ud851.popmoviesst1.activities.MovieDetailsActivity">
 
             <TextView
                 android:id="@+id/tv_movie_title"
@@ -42,6 +42,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/transparent"
+                android:contentDescription="@string/content_description_favorites"
                 app:layout_constraintStart_toEndOf="@+id/iv_movie_cover"
                 app:layout_constraintTop_toBottomOf="@+id/tv_score"
                 app:srcCompat="@drawable/star_unpressed"

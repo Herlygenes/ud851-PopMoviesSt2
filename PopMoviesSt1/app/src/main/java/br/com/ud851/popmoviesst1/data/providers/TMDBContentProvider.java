@@ -25,7 +25,7 @@ import static br.com.ud851.popmoviesst1.data.contracts.TMDBContract.TabMovies.TA
  */
 
 public class TMDBContentProvider extends ContentProvider {
-    Context context;
+    private Context mContext;
     private TMDBSQLHelper mTMDBSQLHelper;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
@@ -48,7 +48,7 @@ public class TMDBContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        context = getContext();
+        mContext = getContext();
         mTMDBSQLHelper = new TMDBSQLHelper(getContext());
         return true;
     }
@@ -203,5 +203,4 @@ public class TMDBContentProvider extends ContentProvider {
         contentValues.put(TMDBContract.TabMovies.COLUMN_VOTE_AVERAGE, movie.getVoteAverage());
         return contentValues;
     }
-
 }

@@ -22,29 +22,29 @@ import br.com.ud851.popmoviesst1.utils.TMDBUtils;
 public final class MenuAdapter extends BaseAdapter {
 
     enum SortCategory {
-        POPULAR(App.getContext().getResources().getString(R.string.menu_opt_most_popular), MainActivity.class),
-        TOP_RATED(App.getContext().getResources().getString(R.string.menu_opt_top_rated), MainActivity.class),
-        FAVORITES(App.getContext().getResources().getString(R.string.menu_opt_favorites), MainActivity.class);
+        POPULAR(App.getsContext().getResources().getString(R.string.menu_opt_most_popular), MainActivity.class),
+        TOP_RATED(App.getsContext().getResources().getString(R.string.menu_opt_top_rated), MainActivity.class),
+        FAVORITES(App.getsContext().getResources().getString(R.string.menu_opt_favorites), MainActivity.class);
 
-        private final Class<? extends Activity> activityClass;
-        private final String name;
+        private final Class<? extends Activity> mActivityClass;
+        private final String mName;
 
-        SortCategory(String name, Class<? extends Activity> activityClass) {
-            this.activityClass = activityClass;
-            this.name = name;
-            StateHolder.setState(name);
+        SortCategory(String name, Class<? extends Activity> mActivityClass) {
+            this.mActivityClass = mActivityClass;
+            this.mName = name;
+            StateHolder.setsState(mName);
         }
 
         public void launch(Activity activity) {
-            Intent intent = new Intent(activity, activityClass);
-            if(name.equals(activity.getResources().getString(R.string.menu_opt_most_popular))){
+            Intent intent = new Intent(activity, mActivityClass);
+            if(mName.equals(activity.getResources().getString(R.string.menu_opt_most_popular))){
                 intent.putExtra(TMDBUtils.QUERY, TMDBUtils.POPULAR_QUERY);
-            } else if(name.equals(activity.getResources().getString(R.string.menu_opt_top_rated))){
+            } else if(mName.equals(activity.getResources().getString(R.string.menu_opt_top_rated))){
                 intent.putExtra(TMDBUtils.QUERY, TMDBUtils.TOP_RATED_QUERY);
-            } else if(name.equals(activity.getResources().getString(R.string.menu_opt_favorites))){
+            } else if(mName.equals(activity.getResources().getString(R.string.menu_opt_favorites))){
                 intent.putExtra(TMDBUtils.QUERY, TMDBUtils.FAVORITES);
             } else {
-                intent.putExtra(TMDBUtils.QUERY, StateHolder.getState());
+                intent.putExtra(TMDBUtils.QUERY, StateHolder.getsState());
             }
             activity.startActivity(intent);
             activity.finish();
@@ -77,7 +77,7 @@ public final class MenuAdapter extends BaseAdapter {
             view = (TextView) inflater.inflate(R.layout.activity_main_item, parent, false);
         }
 
-        view.setText(getItem(position).name);
+        view.setText(getItem(position).mName);
 
         return view;
     }

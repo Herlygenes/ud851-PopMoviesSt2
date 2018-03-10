@@ -18,22 +18,22 @@ import br.com.ud851.popmoviesst1.data.vos.TrailerVO;
  */
 
 public class TrailerAdapter extends BaseAdapter {
-    private final Context context;
-    private List<TrailerVO> trailers = new ArrayList<>();
+    private final Context mContext;
+    private List<TrailerVO> mTrailers = new ArrayList<>();
 
-    public TrailerAdapter(Context context, List<TrailerVO> trailers) {
-        this.context = context;
-        this.trailers = trailers;
+    public TrailerAdapter(Context mContext, List<TrailerVO> trailers) {
+        this.mContext = mContext;
+        this.mTrailers = trailers;
     }
 
     @Override
     public int getCount() {
-        return trailers.size();
+        return mTrailers.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return trailers.get(position);
+        return mTrailers.get(position);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class TrailerAdapter extends BaseAdapter {
         TrailerVO trailer = (TrailerVO) getItem(position);
 
         if(convertView == null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.activity_movie_trailer, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.activity_movie_trailer, parent, false);
         }
 
         TextView tv_video_name = (TextView) convertView.findViewById(R.id.tv_video_name);
