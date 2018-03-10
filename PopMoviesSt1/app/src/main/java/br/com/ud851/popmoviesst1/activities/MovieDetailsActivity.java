@@ -35,6 +35,8 @@ import br.com.ud851.popmoviesst1.utils.LayoutUtils;
 import br.com.ud851.popmoviesst1.utils.StateHolder;
 import br.com.ud851.popmoviesst1.utils.TMDBUtils;
 import br.com.ud851.popmoviesst1.utils.YoutubeUtils;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Herlygenes Pinto on 09/12/2017.
@@ -47,12 +49,14 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
     private static String LOG_TAG = MovieDetailsActivity.class.getSimpleName();
 
     private TMDBMovie mMovie;
-    private TextView mTvMovieTitle;
-    private TextView mTvYear;
-    private TextView mTvScore;
-    private TextView mTvOverview;
-    private ImageView mIvMovieCover;
-    private AppCompatImageButton mIbFavorite;
+
+    @BindView(R.id.tv_movie_title) TextView mTvMovieTitle;
+    @BindView(R.id.tv_year) TextView mTvYear;
+    @BindView(R.id.tv_score) TextView mTvScore;
+    @BindView(R.id.tv_overview) TextView mTvOverview;
+    @BindView(R.id.iv_movie_cover) ImageView mIvMovieCover;
+    @BindView(R.id.bt_favorites) AppCompatImageButton mIbFavorite;
+    @BindView(R.id.reviews_list_view) ListView lvReview;
 
     private boolean mInFavorites;
 
@@ -69,11 +73,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
         super.onCreate(savedInstanceState);
         String posterPath;
         setContentView(R.layout.activity_movie_details);
-        mTvMovieTitle = (TextView) findViewById(R.id.tv_movie_title);
-        mTvYear = (TextView) findViewById(R.id.tv_year);
-        mTvScore = (TextView) findViewById(R.id.tv_score);
-        mTvOverview = (TextView) findViewById(R.id.tv_overview);
-        mIvMovieCover = (ImageView) findViewById(R.id.iv_movie_cover);
+        ButterKnife.bind(this);
         Intent intent = getIntent();
 
         if(intent.hasExtra(MovieVO.PARCELABLE_KEY)){
@@ -105,7 +105,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
     }
 
     private void setUpFavoriteButton(){
-        mIbFavorite = (AppCompatImageButton) findViewById(R.id.bt_favorites);
         checkFavorites();
         mIbFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,7 +175,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements AsyncTask
                 getReviewsFromTMDB();
             } else {
                 mMovie.setmReviews((List<ReviewVO>) output);
-                ListView lvReview = (ListView) findViewById(R.id.reviews_list_view);
 
                 ReviewAdapter reviewAdapter = new ReviewAdapter(this, mMovie.getmReviews());
 

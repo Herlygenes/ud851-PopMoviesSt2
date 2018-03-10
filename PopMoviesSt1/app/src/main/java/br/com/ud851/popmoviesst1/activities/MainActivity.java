@@ -28,6 +28,8 @@ import br.com.ud851.popmoviesst1.listeners.ScrollListener;
 import br.com.ud851.popmoviesst1.services.TheMovieDatabaseService;
 import br.com.ud851.popmoviesst1.utils.StateHolder;
 import br.com.ud851.popmoviesst1.utils.TMDBUtils;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Herlygenes Pinto on 09/12/2017.
@@ -39,17 +41,17 @@ public class MainActivity extends MenuActivity implements AsyncTaskDelegate{
     private static int TILE_WIDTH = 512;
     private List<MovieVO> mMovies = new ArrayList<>();
     private Context mContext;
-    private TextView mMenuTitle;
-    private TextView mTvNoInternet;
-    private GridView mGvActivityMain;
+
+    @BindView(R.id.tv_menu) TextView mMenuTitle;
+    @BindView(R.id.tv_no_internet) TextView mTvNoInternet;
+    @BindView(R.id.grid_view) GridView mGvActivityMain;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = MainActivity.this;
         setContentView(R.layout.activity_main);
-        mMenuTitle = (TextView) findViewById(R.id.tv_menu);
-        mTvNoInternet =  (TextView) findViewById(R.id.tv_no_internet);
-        mGvActivityMain = (GridView) findViewById(R.id.grid_view);
+        ButterKnife.bind(this);
+        mContext = MainActivity.this;
+
         mGvActivityMain.setNumColumns(calculateNumberOfColumns());
 
         if(StateHolder.getsLastActivity() == null){
